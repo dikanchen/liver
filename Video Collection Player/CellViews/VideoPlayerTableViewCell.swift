@@ -20,7 +20,7 @@ class VideoPlayerTableViewCell: UITableViewCell {
     @IBOutlet weak var progressSlider: UISlider!
     
     weak var delegate: videoPlayerTableViewCellDelegate?
-    var player: AVPlayer?
+    static var player = AVPlayer()
     var playerLayer: AVPlayerLayer?
     
     override func awakeFromNib() {
@@ -36,13 +36,28 @@ class VideoPlayerTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        player?.pause()
+        VideoPlayerTableViewCell.player.pause()
         playerLayer?.removeFromSuperlayer()
     }
     
+    func configure(with playerItem: AVPlayerItem) {
+        if VideoPlayerTableViewCell.player.currentItem === playerItem {
+            // If it's already associated, no need to replace the item
+            print("PlayerItem is already associated with the player.")
+        } else {
+            // If it's not associated, replace the current player item with the new one
+            VideoPlayerTableViewCell.player.replaceCurrentItem(with: playerItem)
+            print("PlayerItem has been replaced in the player.")
+        }
+        playerLayer = AVPlayerLayer(player: VideoPlayerTableViewCell.player)
+        playerLayer?.frame = contentView.bounds
+        contentView.layer.insertSublayer(playerLayer!, at: 0)
+        addPlayerObservers()
+    }
+    
     func configure(with videoURL: URL) {
-        player = AVPlayer(url: videoURL)
-        playerLayer = AVPlayerLayer(player: player)
+        VideoPlayerTableViewCell.player = AVPlayer(url: videoURL)
+        playerLayer = AVPlayerLayer(player: VideoPlayerTableViewCell.player)
         
         playerLayer?.frame = contentView.bounds
         contentView.layer.insertSublayer(playerLayer!, at: 0)
@@ -51,17 +66,17 @@ class VideoPlayerTableViewCell: UITableViewCell {
     }
     
     func playVideo() {
-        player?.play()
+        VideoPlayerTableViewCell.player.play()
         playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
     }
     
     func stopVideo() {
-        player?.pause()
+        VideoPlayerTableViewCell.player.pause()
         playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
     }
     
     @IBAction func playBtnTapped(_ sender: Any) {
-        if player?.timeControlStatus == .playing {
+        if VideoPlayerTableViewCell.player.timeControlStatus == .playing {
             stopVideo()
             print("pause video")
         } else {
@@ -72,18 +87,19 @@ class VideoPlayerTableViewCell: UITableViewCell {
     }
     
     @IBAction func sliderSwiped(_ sender: Any) {
-        guard let duration = player?.currentItem?.duration else { return }
+        guard let duration = VideoPlayerTableViewCell.player.currentItem?.duration else { return }
         let totalSeconds = CMTimeGetSeconds(duration)
         let value = Float64(progressSlider.value) * totalSeconds
         
         let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
-        player?.seek(to: seekTime)
+        VideoPlayerTableViewCell.player.seek(to: seekTime)
         
         delegate?.sliderValueChanged(self, value: progressSlider.value)
     }
     
     func addPlayerObservers() {
-        guard let player = player, let currentItem = player.currentItem else { return }
+        let player = VideoPlayerTableViewCell.player
+        guard let currentItem = player.currentItem else { return }
         
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = 1
@@ -104,7 +120,7 @@ class VideoPlayerTableViewCell: UITableViewCell {
     }
     
     @objc func videoDidEnd() {
-        player?.seek(to: CMTime.zero)
-        player?.play()
+        VideoPlayerTableViewCell.player.seek(to: CMTime.zero)
+        VideoPlayerTableViewCell.player.play()
     }
 }
