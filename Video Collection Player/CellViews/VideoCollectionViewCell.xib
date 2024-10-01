@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCollectionViewCell" id="gTV-IL-0wX" customClass="VideoCollectionViewCell" customModule="Video_Collection_Player" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="189" height="298"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="189" height="298"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fk2-5i-FAR">
+                        <rect key="frame" x="0.0" y="0.0" width="189" height="298"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Orb-ry-r3b">
+                                <rect key="frame" x="0.0" y="0.0" width="189" height="298"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Xmi-i6-r4G">
+                                <rect key="frame" x="84.666666666666671" y="139" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Orb-ry-r3b" secondAttribute="bottom" id="DZ1-No-bKY"/>
+                            <constraint firstItem="Xmi-i6-r4G" firstAttribute="centerY" secondItem="fk2-5i-FAR" secondAttribute="centerY" id="FLE-um-X6z"/>
+                            <constraint firstItem="Orb-ry-r3b" firstAttribute="top" secondItem="fk2-5i-FAR" secondAttribute="top" id="Hg1-AD-xJg"/>
+                            <constraint firstItem="Orb-ry-r3b" firstAttribute="leading" secondItem="fk2-5i-FAR" secondAttribute="leading" id="N6M-Qu-mDv"/>
+                            <constraint firstAttribute="trailing" secondItem="Orb-ry-r3b" secondAttribute="trailing" id="fev-sr-IBM"/>
+                            <constraint firstItem="Xmi-i6-r4G" firstAttribute="centerX" secondItem="fk2-5i-FAR" secondAttribute="centerX" id="ijo-PY-Ljn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="fk2-5i-FAR" secondAttribute="trailing" id="2VB-Ks-D5o"/>
+                <constraint firstItem="fk2-5i-FAR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Jhj-BV-3kW"/>
+                <constraint firstAttribute="bottom" secondItem="fk2-5i-FAR" secondAttribute="bottom" id="KPT-Bi-Aqm"/>
+                <constraint firstItem="fk2-5i-FAR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ryf-5e-MXv"/>
+            </constraints>
+            <size key="customSize" width="189" height="298"/>
+            <connections>
+                <outlet property="thumLoadingIndicator" destination="Xmi-i6-r4G" id="nsD-6i-elU"/>
+                <outlet property="videoImageView" destination="Orb-ry-r3b" id="tJE-uk-CFN"/>
+            </connections>
+            <point key="canvasLocation" x="183.96946564885496" y="107.04225352112677"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
